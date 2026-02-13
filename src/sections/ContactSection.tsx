@@ -24,14 +24,14 @@ export const ContactSection = () => {
             </a>
           </Card>
 
-          <Card className="p-6 flex flex-col items-center w-full md:w-64 hover:border-blue-500 transition-colors">
+          <Card className="p-6 flex flex-col items-center w-full md:w-64 hover:border-blue-500 transition-colors cursor-pointer" onClick={() => window.open(personalData.linkedin, '_blank')}>
             <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
               <FaLinkedin size={24} />
             </div>
             <h3 className="font-semibold text-lg mb-2 text-slate-900 dark:text-white">LinkedIn</h3>
-            <a href={personalData.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">
+            <span className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">
               Connect on LinkedIn
-            </a>
+            </span>
           </Card>
 
           <Card className="p-6 flex flex-col items-center w-full md:w-64 hover:border-blue-500 transition-colors">
