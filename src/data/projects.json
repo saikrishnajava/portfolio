@@ -1,0 +1,26 @@
+[
+  {
+    "title": "PriceChecker",
+    "description": "Chrome extension for price comparison",
+    "tech": ["JavaScript", "HTML", "CSS"],
+    "link": "https://github.com/saikrishnagarikipati/pricechecker"
+  },
+  {
+    "title": "Advanced Chatbot",
+    "description": "Harvard NLP AI chatbot",
+    "tech": ["Java", "NLP", "AI"],
+    "link": "https://github.com/saikrishnagarikipati/advanced-chatbot"
+  },
+  {
+    "title": "Balance Sheet Master",
+    "description": "Financial tracking application",
+    "tech": ["Java", "Spring Boot", "React"],
+    "link": "https://github.com/saikrishnagarikipati/balance-sheet-master"
+  },
+  {
+    "title": "Vedic Clock",
+    "description": "Panchanga & Time Android App",
+    "tech": ["Kotlin", "Android"],
+    "link": "https://github.com/saikrishnagarikipati/vedic-clock"
+  }
+]

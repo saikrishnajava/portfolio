@@ -1,0 +1,42 @@
+[
+  {
+    "company": "Apple",
+    "role": "Senior Lead Software Engineer",
+    "period": "2023-Present",
+    "achievements": [
+      "Led development of critical microservices handling high-volume traffic.",
+      "Optimized system performance, achieving 99.95% uptime.",
+      "Mentored junior engineers and established coding best practices."
+    ]
+  },
+  {
+    "company": "Fiserv",
+    "role": "Senior Software Engineer",
+    "period": "2021-2023",
+    "achievements": [
+      "Reduced MTTR by 50% through improved monitoring and alerting.",
+      "Migrated legacy monolithic applications to microservices architecture.",
+      "Implemented CI/CD pipelines reducing deployment time from 4h to 12min."
+    ]
+  },
+  {
+    "company": "Zions Bancorporation",
+    "role": "Software Engineer",
+    "period": "2019-2021",
+    "achievements": [
+      "Developed secure financial applications using Java and Spring Boot.",
+      "Improved API response times by 25% through query optimization.",
+      "Collaborated with product teams to deliver features ahead of schedule."
+    ]
+  },
+  {
+    "company": "Comerica Bank",
+    "role": "Associate Software Engineer",
+    "period": "2017-2019",
+    "achievements": [
+      "Assisted in the development of internal banking tools.",
+      "Maintained and updated legacy codebases.",
+      "Participated in agile ceremonies and sprint planning."
+    ]
+  }
+]

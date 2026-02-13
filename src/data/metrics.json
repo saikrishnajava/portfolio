@@ -1,0 +1,27 @@
+[
+  {
+    "value": 99.95,
+    "suffix": "%",
+    "label": "Uptime",
+    "description": "Managed 10M+ daily requests"
+  },
+  {
+    "value": 50,
+    "suffix": "%",
+    "label": "Reduction",
+    "description": "MTTR improvement"
+  },
+  {
+    "value": 12,
+    "suffix": "min",
+    "prefix": "4h → ",
+    "label": "Deployment",
+    "description": "Deployment time optimization"
+  },
+  {
+    "value": 25,
+    "suffix": "%",
+    "label": "Faster",
+    "description": "API response time improvement"
+  }
+]

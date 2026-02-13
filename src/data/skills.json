@@ -1,0 +1,6 @@
+{
+  "Backend": ["Java 8-21", "Spring Boot 2-3", "Kafka", "Redis", "PostgreSQL", "MongoDB"],
+  "Frontend": ["React 18", "TypeScript", "Redux", "Tailwind", "JavaScript ES6+"],
+  "Cloud": ["AWS (ECS, Lambda, S3, RDS, CloudWatch)", "Docker", "Kubernetes"],
+  "Tools": ["Git", "Jenkins", "Maven", "IntelliJ IDEA", "VS Code", "Postman"]
+}
