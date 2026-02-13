@@ -1,22 +1,20 @@
-# Professional React Portfolio
+# Saikrishna Garikipati - Portfolio
 
-A modern, production-ready portfolio website built with React 18, TypeScript, Vite, and Tailwind CSS.
+A professional portfolio website showcasing my experience as a Senior Lead Software Engineer, built with modern web technologies.
 
 ## 🚀 Tech Stack
 
-- **Frontend Framework:** React 18 + TypeScript
-- **Build Tool:** Vite
-- **Styling:** Tailwind CSS + clsx + tailwind-merge
-- **Animations:** Framer Motion + React CountUp
+- **Frontend:** React 18, TypeScript, Vite
+- **Styling:** Tailwind CSS, Framer Motion
+- **Deployment:** GitHub Pages
 - **Icons:** React Icons
-- **Deployment:** GitHub Pages / Vercel compatible
 
-## 🛠️ Setup & Installation
+## 🛠️ Local Development
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/saikrishnagarikipati/my-portfolio.git
-   cd my-portfolio
+   git clone https://github.com/saikrishnajava/portfolio.git
+   cd portfolio
    ```
 
 2. **Install dependencies**
@@ -24,7 +22,7 @@ A modern, production-ready portfolio website built with React 18, TypeScript, Vi
    npm install
    ```
 
-3. **Run local development server**
+3. **Run development server**
    ```bash
    npm run dev
    ```
@@ -34,36 +32,12 @@ A modern, production-ready portfolio website built with React 18, TypeScript, Vi
    npm run build
    ```
 
-## 📂 Project Structure
+## 📂 Structure
 
-```
-src/
-├── components/     # Reusable UI components
-│   ├── ui/         # Generic UI elements (Button, Card, etc.)
-│   └── ...         # Feature-specific components
-├── sections/       # Page sections (Hero, Skills, Projects, etc.)
-├── data/           # JSON content files
-├── hooks/          # Custom React hooks
-└── utils/          # Utility functions
-```
-
-## 🌍 Deployment
-
-### Vercel (Recommended)
-1. Install Vercel CLI: `npm i -g vercel`
-2. Run `vercel` in the project root
-3. Follow the prompts
-
-### GitHub Pages
-1. Update `vite.config.ts` base path if needed (e.g. `base: '/my-portfolio/'`)
-2. Run `npm run build`
-3. Deploy the `dist` folder to `gh-pages` branch
-
-## 🎨 Customization
-
-- Update personal info in `src/data/personal.json`
-- Add projects in `src/data/projects.json`
-- Modify theme colors in `tailwind.config.js`
+- `src/components`: Reusable UI components
+- `src/sections`: Landing page sections (Hero, Experience, etc.)
+- `src/data`: JSON files for content management
+- `public`: Static assets (images, resume)
 
 ## 📄 License
 
