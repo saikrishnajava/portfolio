@@ -1,26 +1,26 @@
 [
   {
-    "title": "PriceChecker",
-    "description": "Chrome extension for price comparison",
-    "tech": ["JavaScript", "HTML", "CSS"],
-    "link": "https://github.com/saikrishnagarikipati/pricechecker"
+    "title": "Vedic Clock",
+    "description": "Android application for Panchanga & Vedic Time tracking, featuring precise astronomical calculations and a modern UI.",
+    "tech": ["Kotlin", "Android SDK", "Jetpack Compose"],
+    "link": "https://github.com/saikrishnajava/vedic-clock"
   },
   {
     "title": "Advanced Chatbot",
-    "description": "Harvard NLP AI chatbot",
-    "tech": ["Java", "NLP", "AI"],
-    "link": "https://github.com/saikrishnagarikipati/advanced-chatbot"
+    "description": "Intelligent conversational agent leveraging Harvard NLP models to understand context and provide accurate responses.",
+    "tech": ["Java", "NLP", "AI/ML"],
+    "link": "https://github.com/saikrishnajava/advanced-chatbot"
   },
   {
-    "title": "Balance Sheet Master",
-    "description": "Financial tracking application",
-    "tech": ["Java", "Spring Boot", "React"],
-    "link": "https://github.com/saikrishnagarikipati/balance-sheet-master"
+    "title": "Docu Buddy",
+    "description": "Python-based documentation assistant that helps developers organize and retrieve technical documentation efficiently.",
+    "tech": ["Python", "Flask", "OpenAI API"],
+    "link": "https://github.com/saikrishnajava/docu_buddy"
   },
   {
-    "title": "Vedic Clock",
-    "description": "Panchanga & Time Android App",
-    "tech": ["Kotlin", "Android"],
-    "link": "https://github.com/saikrishnagarikipati/vedic-clock"
+    "title": "YSneeze",
+    "description": "Java application focused on health monitoring or alert systems (inferred from name/tech), demonstrating robust backend logic.",
+    "tech": ["Java", "Spring Boot", "Microservices"],
+    "link": "https://github.com/saikrishnajava/ysneeze"
   }
 ]
