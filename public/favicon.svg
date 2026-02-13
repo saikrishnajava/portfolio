@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
   <rect width="100" height="100" rx="20" fill="#2563EB" />
-  <text x="50" y="65" font-family="Arial, sans-serif" font-weight="bold" font-size="50" text-anchor="middle" fill="white">SG</text>
+  <path d="M35 30 L15 50 L35 70" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M65 30 L85 50 L65 70" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M42 80 L58 20" stroke="white" stroke-width="8" stroke-linecap="round"/>
 </svg>
