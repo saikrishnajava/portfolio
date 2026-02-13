@@ -1,6 +1,7 @@
 {
-  "Backend": ["Java 8-21", "Spring Boot 2-3", "Kafka", "Redis", "PostgreSQL", "MongoDB"],
-  "Frontend": ["React 18", "TypeScript", "Redux", "Tailwind", "JavaScript ES6+"],
-  "Cloud": ["AWS (ECS, Lambda, S3, RDS, CloudWatch)", "Docker", "Kubernetes"],
-  "Tools": ["Git", "Jenkins", "Maven", "IntelliJ IDEA", "VS Code", "Postman"]
+  "Backend": ["Java 21/17/8", "Spring Boot 3.5.4", "Spring Cloud", "Kafka", "Hibernate", "Microservices", "GraphQL"],
+  "Frontend": ["React 18", "Redux", "TypeScript", "JavaScript ES6+", "HTML5", "CSS3", "Angular 14+"],
+  "Cloud": ["AWS (EC2, EKS, S3, Lambda, DynamoDB)", "Docker", "Kubernetes", "Red Hat OpenShift", "Serverless"],
+  "Database": ["Oracle", "MySQL", "MongoDB", "DynamoDB", "CockroachDB", "PostgreSQL", "Qdrant"],
+  "Tools": ["Git", "Jenkins", "Maven", "Gradle", "JIRA", "ELK Stack", "IntelliJ IDEA"]
 }

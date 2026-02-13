@@ -70,9 +70,11 @@ export const HeroSection = () => {
           <Button size="lg" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
             View Projects <FaArrowRight className="ml-2" />
           </Button>
-          <Button variant="outline" size="lg">
-            Download Resume <FaDownload className="ml-2" />
-          </Button>
+          <a href="resume.docx" download="Saikrishna_Garikipati_Resume.docx">
+            <Button variant="outline" size="lg">
+              Download Resume <FaDownload className="ml-2" />
+            </Button>
+          </a>
         </motion.div>
       </div>
 
@@ -80,8 +82,8 @@ export const HeroSection = () => {
         <AvatarCard 
           name={personalData.name}
           role={personalData.role}
-          avatarUrl="https://github.com/saikrishnagarikipati.png" 
-          badges={['Java', 'Spring Boot', 'React', 'Kafka', 'AWS']}
+          avatarUrl="profile.jpg" 
+          badges={['Java 21', 'Spring Boot', 'React', 'Kafka', 'AWS']}
         />
       </div>
     </Section>
