@@ -57,5 +57,15 @@
       "Improved report generation time from 45 minutes to 8 minutes through database tuning.",
       "Achieved 85% code coverage and reduced production defects by 40% with automated testing."
     ]
+  },
+  {
+    "company": "PLLC Software Solutions",
+    "role": "Java Developer",
+    "period": "April 2014 - December 2015",
+    "achievements": [
+      "Developed core modules for inventory, procurement, and financial management using Java and Spring Framework.",
+      "Implemented REST APIs connecting ERP system with third-party integrations, reducing manual data entry by 70%.",
+      "Optimized database queries through indexing and query analysis, improving system performance by 35%."
+    ]
   }
 ]
