@@ -1,26 +1,38 @@
 [
   {
-    "title": "Vedic Clock",
-    "description": "Android application for Panchanga & Vedic Time tracking, featuring precise astronomical calculations and a modern UI.",
-    "tech": ["Kotlin", "Android SDK", "Jetpack Compose"],
-    "link": "https://github.com/saikrishnajava/vedic-clock"
+    "title": "Event Ledger",
+    "description": "Two Spring Boot microservices processing financial transaction events with idempotency, out-of-order tolerance, layered resiliency, and end-to-end OpenTelemetry tracing.",
+    "tech": ["Java 21", "Spring Boot", "Resilience4j", "OpenTelemetry", "Docker"],
+    "link": "https://github.com/saikrishnajava/event-ledger"
   },
   {
-    "title": "Advanced Chatbot",
-    "description": "Intelligent conversational agent leveraging Harvard NLP models to understand context and provide accurate responses.",
-    "tech": ["Java", "NLP", "AI/ML"],
-    "link": "https://github.com/saikrishnajava/advanced-chatbot"
+    "title": "MatrixDB",
+    "description": "GPU-accelerated analytical database with a lock-free ingestion pipeline, three-tier VRAM/RAM/SSD storage, and byte-for-byte CPU verification of every GPU query result.",
+    "tech": ["C++", "CUDA", "Lock-free", "Columnar Store", "Python"],
+    "link": "https://github.com/garikipatisai-code/matrixdb"
   },
   {
-    "title": "Docu Buddy",
-    "description": "Python-based documentation assistant that helps developers organize and retrieve technical documentation efficiently.",
-    "tech": ["Python", "Flask", "OpenAI API"],
-    "link": "https://github.com/saikrishnajava/docu_buddy"
+    "title": "Software Defined Memory",
+    "description": "C11 tiered memory manager that transparently moves pages across DRAM, SCM/CXL, GPU VRAM, and NVMe using ML-driven classification and predictive prefetching.",
+    "tech": ["C11", "Linux", "userfaultfd", "Memory Tiering", "Prometheus"],
+    "link": "https://github.com/saikrishnajava/SDM"
   },
   {
-    "title": "YSneeze",
-    "description": "Java application focused on health monitoring or alert systems (inferred from name/tech), demonstrating robust backend logic.",
-    "tech": ["Java", "Spring Boot", "Microservices"],
-    "link": "https://github.com/saikrishnajava/ysneeze"
+    "title": "On-Device Browser Agent",
+    "description": "Chrome MV3 agent driven by a local Ollama model; plans multi-step tasks, acts on pages, and verifies claims against a grounded facts ledger, with no cloud or telemetry by default.",
+    "tech": ["TypeScript", "Chrome MV3", "Ollama", "Local LLM", "Privacy-first"],
+    "link": "https://github.com/garikipatisai-code/on-device-browser-agent"
+  },
+  {
+    "title": "SDLC Lean",
+    "description": "Agentic SDLC suite for OpenCode that infers feature, bugfix, refactor, or security pipelines and enforces TDD, review, and verification through dedicated subagents.",
+    "tech": ["JavaScript", "OpenCode", "AI Agents", "TDD", "Developer Tools"],
+    "link": "https://github.com/garikipatisai-code/sdlc-lean"
+  },
+  {
+    "title": "Quantum ML Research",
+    "description": "Reproducible hybrid quantum-classical transformer experiments across 20+ tasks and 6-24 qubits, including a rigorous negative result on practical quantum advantage.",
+    "tech": ["Python", "PennyLane", "Quantum ML", "NumPy", "Research"],
+    "link": "https://github.com/saikrishnajava/quantum-ml-research"
   }
 ]
