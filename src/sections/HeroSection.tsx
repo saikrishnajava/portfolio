@@ -84,7 +84,7 @@ export const HeroSection = () => {
             name={personalData.name}
             role={personalData.role}
             avatarUrl="profile.jpg" 
-            badges={['Java 21', 'Spring Boot', 'Kafka', 'Kubernetes', 'AI Engineering']}
+            badges={['Java 25', 'Spring Boot', 'Kafka', 'Kubernetes', 'AI Engineering']}
           />
         </div>
       </div>
