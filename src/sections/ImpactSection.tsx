@@ -25,7 +25,6 @@ export const ImpactSection = () => {
           {metricsData.map((metric, index) => (
             <Card key={index} className="p-6 text-center border-none shadow-lg hover:-translate-y-1 transition-transform duration-300">
               <div className="text-4xl md:text-5xl font-bold text-blue-600 dark:text-blue-500 mb-2">
-                {metric.prefix}
                 {inView ? (
                   <CountUp 
                     start={0} 

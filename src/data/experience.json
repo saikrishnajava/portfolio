@@ -1,39 +1,45 @@
 [
   {
-    "company": "Apple",
-    "role": "Senior Lead Software Engineer",
-    "period": "August 2024 - Present",
+    "company": "Charles Schwab",
+    "role": "Systems Engineer Expert | AI Augmentation",
+    "period": "July 2026 - Present",
     "achievements": [
-      "Architected Spring Boot 3.5.4 microservices for a streaming platform serving millions of daily requests with 99.95% uptime.",
-      "Led migration from Agile PLM to Siemens Teamcenter PLM, implementing Kafka integrations that reduced manual intervention by 85%.",
-      "Designed real-time cache refresh with CockroachDB change feeds, reducing staleness from 30s to <100ms for 500K+ users.",
-      "Optimized system efficiency by 30% and reduced API response times from 800ms to 350ms through critical code refactoring.",
-      "Leveraged AI tools (MCP, Roo Code) to cut feature development time by 20-30% while maintaining code quality.",
-      "Mentored 7 engineers and drove a 35% reduction in production incidents through rigorous code reviews."
+      "Focus on large-scale distributed systems, cloud-native platforms, and AI-augmented development architectures supporting mission-critical enterprise workloads."
+    ]
+  },
+  {
+    "company": "Apple",
+    "role": "Technology Architect / Senior Lead Software Engineer",
+    "period": "August 2024 - July 2026",
+    "achievements": [
+      "Led Java/Spring Boot microservice architecture and delivery for enterprise streaming, data transformation, and integration workflows using Kafka and Kubernetes.",
+      "Led Agile PLM-to-Siemens Teamcenter migration and built Kafka-driven integration pipelines for file transformation and product-data synchronization with Oracle and CockroachDB.",
+      "Designed CockroachDB change-feed-based cache refresh, sidecar services, and REST APIs; optimized critical code paths and reduced API response time from 800ms to 350ms.",
+      "Implemented Qdrant semantic retrieval and guardrails; built Claude-integrated toolchains connecting external APIs, databases, and modular agent workflows.",
+      "Applied RooCode, Claude, and MCP-based tooling to architecture validation, code analysis, refactoring, and test creation while retaining human review for correctness and security.",
+      "Mentored seven engineers and strengthened code reviews and incident troubleshooting; reduced average incident recovery time from 2.5 hours to 45 minutes."
     ]
   },
   {
     "company": "Fiserv",
-    "role": "Senior Software Engineer (Cloud Migration Lead)",
+    "role": "Lead Software Development Engineer",
     "period": "May 2023 - July 2024",
     "achievements": [
-      "Spearheaded cloud migration to Red Hat OpenShift, reducing deployment time from 4 hours to 12 minutes.",
-      "Architected private cloud infrastructure with service mesh, improving availability from 99.5% to 99.95%.",
-      "Modernized full-stack apps with React/Redux and GraphQL, improving user engagement metrics by 32%.",
-      "Designed DynamoDB models achieving 50% query performance improvement and 30% cost reduction.",
-      "Reduced Mean Time To Recovery (MTTR) by 60% through DevOps collaboration and infrastructure improvements."
+      "Led monolith-to-microservices migration on Red Hat OpenShift, reducing deployment time from four hours to 12 minutes through containerization and continuous delivery.",
+      "Designed multi-zone OpenShift architecture with service mesh and autoscaling; built resilient data platforms using Amazon RDS, DynamoDB, and S3.",
+      "Delivered full-stack modernization using MongoDB, React/Redux, Node.js, and GraphQL; improved API responsiveness and maintainability.",
+      "Led distributed-team code reviews, mentored engineers, and automated Linux deployment, monitoring, and log aggregation with shell scripts."
     ]
   },
   {
     "company": "Zions Bancorporation",
-    "role": "Java Application Developer",
-    "period": "June 2021 - April 2023",
+    "role": "Java Full Stack Developer",
+    "period": "June 2021 - May 2023",
     "achievements": [
-      "Architected reactive GraphQL service handling 10M+ daily requests, reducing server memory footprint by 25%.",
-      "Implemented Kafka-based microservices for near-real-time data sync with 99.99% message delivery guarantee.",
-      "Engineered DynamoDB implementation with sub-100ms latency for multi-billion record datasets.",
-      "Optimized database performance, increasing throughput from 5K to 15K transactions/second.",
-      "Automated deployment and monitoring with Unix shell scripts, saving 30 hours of manual work per week."
+      "Architected reactive GraphQL services with Spring Boot, WebFlux, and Project Reactor for enterprise Data-as-a-Service and cross-application synchronization.",
+      "Built REST microservices and Kafka event flows for near-real-time transactional data; implemented DynamoDB indexes and stream processing for high-volume workloads.",
+      "Optimized database queries, indexing, and connection pooling; improved transaction throughput from 5,000 to 15,000 transactions per second.",
+      "Delivered AWS/Kubernetes infrastructure and shell-based deployment automation; collaborated through Azure DevOps, Git, and Agile delivery practices."
     ]
   },
   {
@@ -41,21 +47,18 @@
     "role": "Lead Java/J2EE Developer",
     "period": "April 2020 - May 2021",
     "achievements": [
-      "Led a team of 5 developers to improve deployment frequency from monthly to bi-weekly for digital banking.",
-      "Architected ESB integration processing 100M+ monthly transactions with sub-second response times.",
-      "Migrated monolithic J2EE app to Spring microservices, reducing memory consumption by 40%.",
-      "Optimized SQL queries to reduce transaction processing time by 50%."
+      "Led five developers delivering Java/J2EE banking applications and increased release frequency from monthly to biweekly.",
+      "Designed ESB integrations between core banking and digital channels; migrated monolithic applications to Spring-based microservices.",
+      "Designed multi-tenant relational schemas, optimized transaction queries, and mentored developers through architecture and code reviews."
     ]
   },
   {
     "company": "Blue Cross and Blue Shield",
-    "role": "Senior Software Engineer",
+    "role": "Software Engineer",
     "period": "March 2018 - March 2020",
     "achievements": [
-      "Designed microservices for claims processing (5M+ daily) with 99.98% accuracy.",
-      "Implemented Spring Boot REST APIs integrating with 20+ downstream systems.",
-      "Improved report generation time from 45 minutes to 8 minutes through database tuning.",
-      "Achieved 85% code coverage and reduced production defects by 40% with automated testing."
+      "Designed Spring Boot claims-processing microservices and REST integrations with downstream enterprise systems.",
+      "Reduced report generation time from 45 minutes to eight minutes through query tuning and indexing; developed JUnit/Mockito automated tests."
     ]
   },
   {
@@ -63,9 +66,7 @@
     "role": "Java Developer",
     "period": "April 2014 - December 2015",
     "achievements": [
-      "Developed core modules for inventory, procurement, and financial management using Java and Spring Framework.",
-      "Implemented REST APIs connecting ERP system with third-party integrations, reducing manual data entry by 70%.",
-      "Optimized database queries through indexing and query analysis, improving system performance by 35%."
+      "Built Java/Spring ERP modules for inventory, procurement, and finance; implemented REST integrations and optimized database queries."
     ]
   }
 ]

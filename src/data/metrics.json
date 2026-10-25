@@ -1,27 +1,26 @@
 [
   {
-    "value": 99.95,
+    "value": 95,
     "suffix": "%",
-    "label": "Uptime",
-    "description": "Managed 10M+ daily requests"
+    "label": "Faster Delivery",
+    "description": "Deployment time cut from 4 hours to 12 minutes"
   },
   {
-    "value": 50,
+    "value": 56,
     "suffix": "%",
-    "label": "Reduction",
-    "description": "MTTR improvement"
+    "label": "Faster APIs",
+    "description": "API response time cut from 800ms to 350ms"
   },
   {
-    "value": 12,
-    "suffix": "min",
-    "prefix": "4h → ",
-    "label": "Deployment",
-    "description": "Deployment time optimization"
+    "value": 70,
+    "suffix": "%",
+    "label": "MTTR Reduction",
+    "description": "Incident recovery cut from 2.5 hours to 45 minutes"
   },
   {
-    "value": 25,
-    "suffix": "%",
-    "label": "Faster",
-    "description": "API response time improvement"
+    "value": 3,
+    "suffix": "x",
+    "label": "Throughput",
+    "description": "Transaction throughput raised from 5K to 15K TPS"
   }
 ]

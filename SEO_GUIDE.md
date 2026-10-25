@@ -7,7 +7,7 @@ This guide outlines the implemented Technical SEO changes and provides a roadmap
 We have optimized the codebase to be search-engine friendly:
 
 ### A. On-Page Optimization
-- **Title Tag**: Updated to `Saikrishna Garikipati | Senior Lead Software Engineer` to immediately signal relevance.
+- **Title Tag**: Updated to `Saikrishna Garikipati | Systems Engineer Expert` to immediately signal relevance.
 - **Meta Description**: Added a compelling description (~160 chars) including your name and key skills (Microservices, Java, Cloud-Native).
 - **Schema Markup**: Injected `Person` JSON-LD structured data. This helps Google understand who "Saikrishna Garikipati" is, your job title, and links your social profiles (LinkedIn, GitHub).
 - **Semantic HTML**: Ensured proper `H1` (Your Name) and `H2` tags are used.

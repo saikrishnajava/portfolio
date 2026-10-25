@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaDownload, FaArrowRight } from 'react-icons/fa';
 import personalData from '../data/personal.json';
 
-const titles = personalData.titles || ["Senior Lead Software Engineer", "Microservices Architect", "Full-Stack Developer"];
+const titles = personalData.titles || ["Systems Engineer Expert", "Distributed Systems Architect", "AI-Augmented Engineer"];
 
 export const HeroSection = () => {
   const [index, setIndex] = useState(0);
@@ -71,7 +71,7 @@ export const HeroSection = () => {
             <Button size="lg" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
               View Projects <FaArrowRight className="ml-2" />
             </Button>
-            <a href="resume.docx" download="Saikrishna_Garikipati_Resume.docx">
+            <a href="Saikrishna_Garikipati_Resume.pdf" download="Saikrishna_Garikipati_Resume.pdf">
               <Button variant="outline" size="lg">
                 Download Resume <FaDownload className="ml-2" />
               </Button>
@@ -84,7 +84,7 @@ export const HeroSection = () => {
             name={personalData.name}
             role={personalData.role}
             avatarUrl="profile.jpg" 
-            badges={['Java 21', 'Spring Boot', 'React', 'Kafka', 'AWS']}
+            badges={['Java 21', 'Spring Boot', 'Kafka', 'Kubernetes', 'AI Engineering']}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 # Saikrishna Garikipati - Portfolio
 
-A professional portfolio website showcasing my experience as a Senior Lead Software Engineer, built with modern web technologies.
+A professional portfolio website showcasing my experience as a Systems Engineer Expert, built with modern web technologies.
 
 ## 🚀 Tech Stack
 
