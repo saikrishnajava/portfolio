@@ -1,24 +1,23 @@
-import React from 'react';
 import { Section } from '../components/ui/Section';
 import { ProjectCard } from '../components/ProjectCard';
 import projectsData from '../data/projects.json';
 
 export const ProjectsSection = () => {
   return (
-    <Section id="projects">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Featured Projects</h2>
-          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Showcasing selected public work across distributed systems, AI engineering, and developer tooling.
+    <Section id="projects" className="border-t border-line">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="max-w-2xl">
+          <h2 className="font-serif text-3xl font-normal leading-tight tracking-tight text-ink md:text-4xl">
+            Featured Projects
+          </h2>
+          <p className="mt-4 max-w-[56ch] text-base leading-relaxed text-muted">
+            Public work across distributed systems, AI engineering, and developer tooling.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projectsData.map((project, index) => (
-            <ProjectCard
-              key={index}
-              {...project}
-            />
+
+        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-12 lg:grid-cols-2">
+          {projectsData.map((project) => (
+            <ProjectCard key={project.title} {...project} />
           ))}
         </div>
       </div>

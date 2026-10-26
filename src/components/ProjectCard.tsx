@@ -1,8 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Card } from './ui/Card';
-import { Badge } from './ui/Badge';
-import { FaGithub } from 'react-icons/fa';
 
 interface ProjectCardProps {
   title: string;
@@ -11,28 +7,43 @@ interface ProjectCardProps {
   link: string;
 }
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, tech, link }) => {
+export const ProjectCard: React.FC<ProjectCardProps> = ({
+  title,
+  description,
+  tech,
+  link,
+}) => {
   return (
-    <motion.div
-      whileHover={{ y: -10 }}
-      transition={{ type: 'spring', stiffness: 300 }}
+    <a
+      data-project-card
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex min-h-[44px] flex-col rounded-sm border border-line bg-surface p-6 text-ink transition-colors hover:border-accent focus-visible:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper md:p-8"
     >
-      <Card className="h-full flex flex-col p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 border-t-4 border-t-transparent hover:border-t-blue-500">
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h3>
-          <a href={link} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-500 transition-colors">
-            <FaGithub size={20} />
-          </a>
-        </div>
-        <p className="text-slate-600 dark:text-slate-300 mb-6 flex-grow">{description}</p>
-        <div className="flex flex-wrap gap-2 mt-auto">
-          {tech.map((t) => (
-            <Badge key={t} variant="secondary" className="text-xs">
-              {t}
-            </Badge>
-          ))}
-        </div>
-      </Card>
-    </motion.div>
+      <div className="flex items-baseline justify-between gap-4">
+        <h3 className="font-serif text-xl font-normal leading-snug tracking-tight text-ink transition-colors group-hover:text-accent md:text-2xl">
+          {title}
+        </h3>
+      </div>
+
+      <p className="mt-3 text-sm leading-relaxed text-muted">{description}</p>
+
+      <ul className="mt-auto flex flex-wrap gap-2 pt-6">
+        {tech.map((technology) => (
+          <li
+            key={technology}
+            className="border border-line px-2 py-0.5 text-[11px] tracking-wide text-muted"
+          >
+            {technology}
+          </li>
+        ))}
+      </ul>
+
+      <span className="mt-4 text-sm text-muted underline-offset-4 group-hover:underline group-focus-visible:underline">
+        View repository
+      </span>
+      <span className="sr-only"> (opens in a new tab)</span>
+    </a>
   );
 };

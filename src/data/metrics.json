@@ -3,24 +3,28 @@
     "value": 95,
     "suffix": "%",
     "label": "Faster Delivery",
-    "description": "Deployment time cut from 4 hours to 12 minutes"
+    "description": "Deployment time cut from 4 hours to 12 minutes",
+    "context": "Fiserv deployment"
   },
   {
     "value": 56,
     "suffix": "%",
     "label": "Faster APIs",
-    "description": "API response time cut from 800ms to 350ms"
+    "description": "API response time cut from 800ms to 350ms",
+    "context": "Apple API latency"
   },
   {
     "value": 70,
     "suffix": "%",
     "label": "MTTR Reduction",
-    "description": "Incident recovery cut from 2.5 hours to 45 minutes"
+    "description": "Incident recovery cut from 2.5 hours to 45 minutes",
+    "context": "Apple incident recovery"
   },
   {
     "value": 3,
     "suffix": "x",
     "label": "Throughput",
-    "description": "Transaction throughput raised from 5K to 15K TPS"
+    "description": "Transaction throughput raised from 5K to 15K TPS",
+    "context": "Zions transaction throughput"
   }
 ]

@@ -1,91 +1,51 @@
-import React, { useState, useEffect } from 'react';
 import { Section } from '../components/ui/Section';
-import { Button } from '../components/ui/Button';
 import { AvatarCard } from '../components/AvatarCard';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaDownload, FaArrowRight } from 'react-icons/fa';
+import { buttonVariants } from '../components/ui/Button';
+import { FaArrowRight, FaDownload } from 'react-icons/fa';
 import personalData from '../data/personal.json';
 
-const titles = personalData.titles || ["Systems Engineer Expert", "Distributed Systems Architect", "AI-Augmented Engineer"];
+const RESUME_HREF = 'Saikrishna_Garikipati_Resume.pdf';
 
 export const HeroSection = () => {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % titles.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <Section id="hero" className="min-h-screen flex items-center pt-24 md:pt-0">
-      <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between w-full">
-        <div className="flex-1 space-y-6 text-center md:text-left mb-12 md:mb-0">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-lg md:text-xl font-medium text-blue-600 dark:text-blue-400"
-          >
-            Hello, I'm
-          </motion.h2>
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white"
-          >
+    <Section id="hero" className="pt-28 pb-16 md:pt-32 md:pb-24">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-7">
+          <p className="hero-enter text-sm text-muted">{personalData.role}</p>
+
+          <h1 className="hero-enter hero-stagger-1 mt-5 font-serif text-[clamp(3rem,8vw,5.5rem)] font-normal leading-[0.95] tracking-[-0.02em] text-ink">
             {personalData.name}
-          </motion.h1>
-          
-          <div className="h-8 md:h-12 overflow-hidden relative">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={index}
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -40, opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="text-2xl md:text-4xl font-semibold text-slate-600 dark:text-slate-300"
-              >
-                {titles[index]}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+          </h1>
 
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-slate-600 dark:text-slate-400 max-w-lg mx-auto md:mx-0"
-          >
+          <p className="hero-enter hero-stagger-2 mt-6 max-w-[62ch] text-base leading-relaxed text-muted md:text-lg">
             {personalData.bio}
-          </motion.p>
+          </p>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4"
-          >
-            <Button size="lg" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
-              View Projects <FaArrowRight className="ml-2" />
-            </Button>
-            <a href="Saikrishna_Garikipati_Resume.pdf" download="Saikrishna_Garikipati_Resume.pdf">
-              <Button variant="outline" size="lg">
-                Download Resume <FaDownload className="ml-2" />
-              </Button>
+          <div className="hero-enter hero-stagger-3 mt-9 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#projects"
+              className={buttonVariants({ size: 'lg', className: 'w-full sm:w-auto' })}
+            >
+              View selected work
+              <FaArrowRight aria-hidden="true" />
             </a>
-          </motion.div>
+            <a
+              href={RESUME_HREF}
+              download={RESUME_HREF}
+              className={buttonVariants({
+                variant: 'outline',
+                size: 'lg',
+                className: 'w-full sm:w-auto',
+              })}
+            >
+              <FaDownload aria-hidden="true" />
+              Download résumé (PDF)
+            </a>
+          </div>
         </div>
 
-        <div className="flex-1 flex justify-center md:justify-end">
-          <AvatarCard 
-            name={personalData.name}
-            role={personalData.role}
-            avatarUrl="profile.jpg" 
-            badges={['Java 25', 'Spring Boot', 'Kafka', 'Kubernetes', 'AI Engineering']}
-          />
+        <div className="hero-enter hero-stagger-4 lg:col-span-5 lg:justify-self-end">
+          <AvatarCard />
         </div>
       </div>
     </Section>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HeroSection } from './sections/HeroSection';
 import { ImpactSection } from './sections/ImpactSection';
 import { SkillsSection } from './sections/SkillsSection';
@@ -7,9 +7,8 @@ import { ProjectsSection } from './sections/ProjectsSection';
 import { ContactSection } from './sections/ContactSection';
 import { useTheme } from './hooks/useTheme';
 import { useScrollSpy } from './hooks/useScrollSpy';
-import { FaSun, FaMoon, FaBars, FaTimes, FaArrowUp } from 'react-icons/fa';
-import { Button } from './components/ui/Button';
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { FaSun, FaMoon, FaBars, FaTimes, FaArrowUp, FaDownload } from 'react-icons/fa';
+import { buttonVariants } from './components/ui/Button';
 
 const navItems = [
   { id: 'hero', label: 'Home' },
@@ -20,154 +19,193 @@ const navItems = [
   { id: 'contact', label: 'Contact' },
 ];
 
+const RESUME_HREF = 'Saikrishna_Garikipati_Resume.pdf';
+
+const scrollBehavior = (): ScrollBehavior =>
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+
 function App() {
   const { theme, toggleTheme } = useTheme();
-  const activeSection = useScrollSpy(navItems.map(item => item.id), 100);
+  const activeSection = useScrollSpy(navItems.map((item) => item.id));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  
-  // Scroll Progress
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const headerRef = useRef<HTMLElement>(null);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
+  const mobileNavRef = useRef<HTMLElement>(null);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Back to Top visibility
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setShowBackToTop(true);
-      } else {
-        setShowBackToTop(false);
-      }
+    const updateBackToTop = () => {
+      setShowBackToTop(window.scrollY > 400);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    updateBackToTop();
+    window.addEventListener('scroll', updateBackToTop, { passive: true });
+    return () => window.removeEventListener('scroll', updateBackToTop);
   }, []);
 
-  // Click outside mobile menu to close
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsMenuOpen(false);
-      }
+    if (!isMenuOpen) return;
+
+    const closeOnOutsidePress = (event: MouseEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) setIsMenuOpen(false);
     };
 
-    if (isMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    document.addEventListener('mousedown', closeOnOutsidePress);
+    return () => document.removeEventListener('mousedown', closeOnOutsidePress);
   }, [isMenuOpen]);
 
-  return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-300">
-      {/* Scroll Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 dark:bg-blue-400 z-[60] origin-left"
-        style={{ scaleX }}
-      />
+  useEffect(() => {
+    if (!isMenuOpen) return;
 
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
-        <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-          <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); }} className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    mobileNavRef.current?.querySelector<HTMLAnchorElement>('a[href]')?.focus();
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      event.preventDefault();
+      menuToggleRef.current?.focus();
+      setIsMenuOpen(false);
+    };
+
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [isMenuOpen]);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: scrollBehavior() });
+  };
+
+  return (
+    <div className="min-h-screen bg-paper text-ink">
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
+
+      <header
+        ref={headerRef}
+        className="fixed inset-x-0 top-0 z-50 border-b border-line bg-paper"
+      >
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+          <a
+            href="#hero"
+            className="font-serif text-base font-semibold tracking-tight text-ink sm:text-lg"
+          >
             Saikrishna Garikipati
           </a>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeSection === item.id
-                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                    : 'text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+          <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  aria-current={isActive ? 'location' : undefined}
+                  className={`border-b-2 px-3 py-2 text-sm transition-colors ${
+                    isActive
+                      ? 'border-accent text-accent'
+                      : 'border-transparent text-muted hover:border-line hover:text-ink'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
           </nav>
 
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="rounded-full w-10 h-10 p-0"
-              aria-label="Toggle theme"
+          <div className="flex items-center gap-1 sm:gap-2">
+            <a
+              href={RESUME_HREF}
+              download={RESUME_HREF}
+              className={buttonVariants({
+                variant: 'outline',
+                size: 'sm',
+                className: 'hidden sm:inline-flex',
+              })}
             >
-              {theme === 'light' ? <FaMoon className="text-slate-600" /> : <FaSun className="text-yellow-400" />}
-            </Button>
+              <FaDownload aria-hidden="true" />
+              Résumé
+            </a>
 
-            {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="md:hidden rounded-full w-10 h-10 p-0"
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsMenuOpen(!isMenuOpen);
-              }}
-              aria-label="Toggle menu"
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+              className={buttonVariants({
+                variant: 'ghost',
+                size: 'sm',
+                className: 'h-11 w-11 px-0',
+              })}
             >
-              {isMenuOpen ? <FaTimes /> : <FaBars />}
-            </Button>
+              {theme === 'dark' ? (
+                <FaSun aria-hidden="true" />
+              ) : (
+                <FaMoon aria-hidden="true" />
+              )}
+            </button>
+
+            <button
+              ref={menuToggleRef}
+              type="button"
+              onClick={() => setIsMenuOpen((open) => !open)}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              className={buttonVariants({
+                variant: 'ghost',
+                size: 'sm',
+                className: 'h-11 w-11 px-0 lg:hidden',
+              })}
+            >
+              {isMenuOpen ? (
+                <FaTimes aria-hidden="true" />
+              ) : (
+                <FaBars aria-hidden="true" />
+              )}
+            </button>
           </div>
         </div>
 
-        {/* Mobile Nav */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              ref={menuRef}
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="md:hidden bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 overflow-hidden shadow-lg"
-            >
-              <div className="container mx-auto px-6 py-4 flex flex-col space-y-2">
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`px-4 py-3 rounded-lg text-left text-sm font-medium transition-colors ${
-                      activeSection === item.id
-                        ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900'
+        {isMenuOpen && (
+          <nav
+            ref={mobileNavRef}
+            id="mobile-nav"
+            aria-label="Mobile"
+            className="menu-enter max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-line bg-surface lg:hidden"
+          >
+            <ul className="mx-auto max-w-6xl px-4 py-2 sm:px-6">
+              {navItems.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    onClick={() => setIsMenuOpen(false)}
+                    aria-current={
+                      activeSection === item.id ? 'location' : undefined
+                    }
+                    className={`flex min-h-[44px] items-center border-b border-line text-sm ${
+                      activeSection === item.id ? 'text-accent' : 'text-ink'
                     }`}
                   >
                     {item.label}
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  </a>
+                </li>
+              ))}
+              <li className="py-3">
+                <a
+                  href={RESUME_HREF}
+                  download={RESUME_HREF}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={buttonVariants({ variant: 'outline', size: 'sm' })}
+                >
+                  <FaDownload aria-hidden="true" />
+                  Résumé
+                </a>
+              </li>
+            </ul>
+          </nav>
+        )}
       </header>
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <HeroSection />
         <ImpactSection />
         <SkillsSection />
@@ -176,21 +214,16 @@ function App() {
         <ContactSection />
       </main>
 
-      {/* Back to Top Button */}
-      <AnimatePresence>
-        {showBackToTop && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-40 p-3 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-950"
-            aria-label="Back to top"
-          >
-            <FaArrowUp size={20} />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      {showBackToTop && (
+        <button
+          type="button"
+          onClick={scrollToTop}
+          aria-label="Back to top"
+          className="fixed bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] right-4 z-40 hidden h-11 w-11 items-center justify-center rounded-sm border border-line bg-surface text-ink transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper md:inline-flex"
+        >
+          <FaArrowUp aria-hidden="true" />
+        </button>
+      )}
     </div>
   );
 }

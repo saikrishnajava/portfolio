@@ -1,47 +1,32 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    container: {
-      center: true,
-      padding: '1.5rem',
-      screens: {
-        '2xl': '1280px',
-      },
-    },
     extend: {
       colors: {
-        primary: {
-          DEFAULT: '#3b82f6', // blue-500
-          foreground: '#ffffff',
-        },
-        secondary: {
-          DEFAULT: '#64748b', // slate-500
-          foreground: '#ffffff',
-        },
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
+        // Channels are defined in src/index.css so opacity modifiers keep working.
+        paper: 'rgb(var(--paper) / <alpha-value>)',
+        surface: 'rgb(var(--surface) / <alpha-value>)',
+        ink: 'rgb(var(--ink) / <alpha-value>)',
+        muted: 'rgb(var(--muted) / <alpha-value>)',
+        line: 'rgb(var(--line) / <alpha-value>)',
+        accent: 'rgb(var(--accent) / <alpha-value>)',
       },
-      animation: {
-        'gradient': 'gradient 8s linear infinite',
-      },
-      keyframes: {
-        gradient: {
-          '0%, 100%': {
-            'background-size': '200% 200%',
-            'background-position': 'left center',
-          },
-          '50%': {
-            'background-size': '200% 200%',
-            'background-position': 'right center',
-          },
-        },
+      fontFamily: {
+        serif: ['Georgia', 'ui-serif', 'Cambria', 'Times New Roman', 'Times', 'serif'],
+        sans: [
+          'ui-sans-serif',
+          'system-ui',
+          '-apple-system',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'sans-serif',
+        ],
       },
     },
   },
   plugins: [],
-}
+};

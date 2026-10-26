@@ -2,14 +2,17 @@
   {
     "company": "Charles Schwab",
     "role": "Systems Engineer Expert | AI Augmentation",
+    "location": "Austin, TX",
     "period": "July 2026 - Present",
     "achievements": [
       "Focus on large-scale distributed systems, cloud-native platforms, and AI-augmented development architectures supporting mission-critical enterprise workloads."
-    ]
+    ],
+    "tech": ["Distributed Systems", "Cloud-native", "AI-Augmented Development"]
   },
   {
     "company": "Apple",
     "role": "Technology Architect / Senior Lead Software Engineer",
+    "location": "Austin, TX",
     "period": "August 2024 - July 2026",
     "achievements": [
       "Led Java/Spring Boot microservice architecture and delivery for enterprise streaming, data transformation, and integration workflows using Kafka and Kubernetes.",
@@ -18,55 +21,66 @@
       "Implemented Qdrant semantic retrieval and guardrails; built Claude-integrated toolchains connecting external APIs, databases, and modular agent workflows.",
       "Applied RooCode, Claude, and MCP-based tooling to architecture validation, code analysis, refactoring, and test creation while retaining human review for correctness and security.",
       "Mentored seven engineers and strengthened code reviews and incident troubleshooting; reduced average incident recovery time from 2.5 hours to 45 minutes."
-    ]
+    ],
+    "tech": ["Java", "Spring Boot", "Kafka", "Kubernetes", "CockroachDB", "Oracle", "Qdrant", "Claude", "MCP"]
   },
   {
     "company": "Fiserv",
     "role": "Lead Software Development Engineer",
+    "location": "Berkeley Heights, NJ",
     "period": "May 2023 - July 2024",
     "achievements": [
       "Led monolith-to-microservices migration on Red Hat OpenShift, reducing deployment time from four hours to 12 minutes through containerization and continuous delivery.",
       "Designed multi-zone OpenShift architecture with service mesh and autoscaling; built resilient data platforms using Amazon RDS, DynamoDB, and S3.",
       "Delivered full-stack modernization using MongoDB, React/Redux, Node.js, and GraphQL; improved API responsiveness and maintainability.",
       "Led distributed-team code reviews, mentored engineers, and automated Linux deployment, monitoring, and log aggregation with shell scripts."
-    ]
+    ],
+    "tech": ["Red Hat OpenShift", "Amazon RDS", "DynamoDB", "S3", "MongoDB", "React", "Node.js", "GraphQL", "Linux"]
   },
   {
     "company": "Zions Bancorporation",
     "role": "Java Full Stack Developer",
+    "location": "Salt Lake City, UT",
     "period": "June 2021 - May 2023",
     "achievements": [
       "Architected reactive GraphQL services with Spring Boot, WebFlux, and Project Reactor for enterprise Data-as-a-Service and cross-application synchronization.",
       "Built REST microservices and Kafka event flows for near-real-time transactional data; implemented DynamoDB indexes and stream processing for high-volume workloads.",
       "Optimized database queries, indexing, and connection pooling; improved transaction throughput from 5,000 to 15,000 transactions per second.",
       "Delivered AWS/Kubernetes infrastructure and shell-based deployment automation; collaborated through Azure DevOps, Git, and Agile delivery practices."
-    ]
+    ],
+    "tech": ["Java", "Spring Boot", "WebFlux", "Project Reactor", "GraphQL", "Kafka", "DynamoDB", "AWS", "Kubernetes", "Azure DevOps"]
   },
   {
     "company": "Comerica Bank",
     "role": "Lead Java/J2EE Developer",
+    "location": "Auburn Hills, MI",
     "period": "April 2020 - May 2021",
     "achievements": [
       "Led five developers delivering Java/J2EE banking applications and increased release frequency from monthly to biweekly.",
       "Designed ESB integrations between core banking and digital channels; migrated monolithic applications to Spring-based microservices.",
       "Designed multi-tenant relational schemas, optimized transaction queries, and mentored developers through architecture and code reviews."
-    ]
+    ],
+    "tech": ["Java", "J2EE", "Spring", "ESB", "Multi-tenant Data"]
   },
   {
     "company": "Blue Cross and Blue Shield",
     "role": "Software Engineer",
+    "location": "Richardson, TX",
     "period": "March 2018 - March 2020",
     "achievements": [
       "Designed Spring Boot claims-processing microservices and REST integrations with downstream enterprise systems.",
       "Reduced report generation time from 45 minutes to eight minutes through query tuning and indexing; developed JUnit/Mockito automated tests."
-    ]
+    ],
+    "tech": ["Java", "Spring Boot", "REST", "JUnit", "Mockito"]
   },
   {
     "company": "PLLC Software Solutions",
     "role": "Java Developer",
+    "location": "Rajahmundry, India",
     "period": "April 2014 - December 2015",
     "achievements": [
       "Built Java/Spring ERP modules for inventory, procurement, and finance; implemented REST integrations and optimized database queries."
-    ]
+    ],
+    "tech": ["Java", "Spring", "ERP", "REST"]
   }
 ]

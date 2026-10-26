@@ -1,6 +1,4 @@
-import React from 'react';
 import { Section } from '../components/ui/Section';
-import { Card } from '../components/ui/Card';
 import { Timeline } from '../components/Timeline';
 import experienceData from '../data/experience.json';
 
@@ -17,34 +15,57 @@ const education = [
   },
 ];
 
+const certification = {
+  title: 'Career Essentials in Software Development',
+  issuer: 'Microsoft and LinkedIn',
+  year: '2024',
+};
+
 export const ExperienceSection = () => {
   return (
-    <Section id="experience" className="bg-slate-50 dark:bg-slate-900/50">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Professional Experience</h2>
-          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            My journey through leading tech companies and impactful roles.
+    <Section id="experience" className="border-t border-line">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="max-w-2xl">
+          <h2 className="font-serif text-3xl font-normal leading-tight tracking-tight text-ink md:text-4xl">
+            Professional Experience
+          </h2>
+          <p className="mt-4 max-w-[56ch] text-base leading-relaxed text-muted">
+            A decade of building and operating distributed platforms across financial
+            services, technology, and healthcare.
           </p>
         </div>
-        <Timeline experiences={experienceData} />
 
-        <div className="mt-20">
-          <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white text-center mb-8">
-            Education & Certification
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mt-10 md:mt-12">
+          <Timeline experiences={experienceData} />
+        </div>
+
+        <div className="mt-16 md:mt-20">
+          <h2 className="font-serif text-3xl font-normal leading-tight tracking-tight text-ink md:text-4xl">
+            Education &amp; Certification
+          </h2>
+          <ul className="mt-6 border-b border-line">
             {education.map((item) => (
-              <Card key={item.degree} className="p-6 hover:border-blue-500/50 transition-colors">
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white">{item.degree}</h4>
-                <p className="text-blue-600 dark:text-blue-400 font-medium mt-1">{item.school}</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">Graduated {item.year}</p>
-              </Card>
+              <li
+                key={item.degree}
+                className="grid gap-1 border-t border-line py-5 md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] md:gap-12 md:py-6"
+              >
+                <p className="text-sm tabular-nums text-muted">{item.year}</p>
+                <div>
+                  <h3 className="font-serif text-lg font-normal text-ink">{item.degree}</h3>
+                  <p className="mt-1 text-sm text-muted">{item.school}</p>
+                </div>
+              </li>
             ))}
-          </div>
-          <p className="text-center text-sm text-slate-600 dark:text-slate-400 mt-6">
-            Career Essentials in Software Development — Microsoft and LinkedIn (2024)
-          </p>
+            <li className="grid gap-1 border-t border-line py-5 md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] md:gap-12 md:py-6">
+              <p className="text-sm tabular-nums text-muted">{certification.year}</p>
+              <div>
+                <h3 className="font-serif text-lg font-normal text-ink">
+                  {certification.title}
+                </h3>
+                <p className="mt-1 text-sm text-muted">{certification.issuer}</p>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </Section>

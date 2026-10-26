@@ -32,11 +32,23 @@ A professional portfolio website showcasing my experience as a Systems Engineer 
    npm run build
    ```
 
+## 🧪 Verification
+
+```bash
+npm run verify
+```
+
+Runs the TypeScript build, ESLint, and the zero-dependency browser contract
+check in `scripts/ui-check.mjs` (accessibility, contrast, keyboard, responsive,
+and content assertions). Requires Node 22+ and Chrome; set `CHROME_PATH` if
+Chrome is not at `/usr/bin/google-chrome`.
+
 ## 📂 Structure
 
 - `src/components`: Reusable UI components
 - `src/sections`: Landing page sections (Hero, Experience, etc.)
 - `src/data`: JSON files for content management
+- `scripts`: Browser verification harness
 - `public`: Static assets (images, resume)
 
 ## 📄 License

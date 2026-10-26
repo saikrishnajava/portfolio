@@ -1,70 +1,86 @@
-import React from 'react';
 import { Section } from '../components/ui/Section';
-import { Card } from '../components/ui/Card';
-import { FaEnvelope, FaLinkedin, FaGithub, FaMapMarkerAlt } from 'react-icons/fa';
 import personalData from '../data/personal.json';
+
+const PHONE_DIGITS = personalData.phone.replace(/\D/g, '');
+const PHONE_HREF = `tel:+1${PHONE_DIGITS}`;
+
+const textLink =
+  'inline-block py-1 text-ink underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper';
 
 export const ContactSection = () => {
   return (
-    <Section id="contact" className="bg-slate-50 dark:bg-slate-900/50">
-      <div className="container mx-auto px-6 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-8">Get In Touch</h2>
-        <p className="text-slate-600 dark:text-slate-400 mb-12 max-w-xl mx-auto">
-          I'm always open to discussing new opportunities, innovative projects, or just connecting with fellow engineers.
+    <Section id="contact" className="border-t border-line pb-24 md:pb-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6" data-contact-content>
+        <h2 className="max-w-[24ch] font-serif text-3xl font-normal leading-tight tracking-tight text-ink md:text-5xl">
+          Let&rsquo;s talk about systems that hold up.
+        </h2>
+        <p className="mt-5 max-w-[52ch] text-base leading-relaxed text-muted">
+          Open to conversations about distributed platforms, architecture leadership, and
+          AI-augmented engineering.
         </p>
 
-        <div className="flex flex-col md:flex-row justify-center gap-8 mb-16">
-          <Card className="p-6 flex flex-col items-center w-full md:w-64 hover:border-blue-500 transition-colors">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
-              <FaEnvelope size={24} />
+        <div className="mt-12 grid gap-10 border-t border-line pt-10 md:mt-16 md:grid-cols-2 md:gap-16 md:pt-12">
+          <dl className="space-y-8">
+            <div>
+              <dt className="text-sm text-muted">Email</dt>
+              <dd className="mt-1">
+                <a
+                  href={`mailto:${personalData.email}`}
+                  className={`break-words font-serif text-xl md:text-2xl ${textLink}`}
+                >
+                  {personalData.email}
+                </a>
+              </dd>
             </div>
-            <h3 className="font-semibold text-lg mb-2 text-slate-900 dark:text-white">Email</h3>
-            <a href={`mailto:${personalData.email}`} className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">
-              {personalData.email}
-            </a>
-          </Card>
+            <div>
+              <dt className="text-sm text-muted">Phone</dt>
+              <dd className="mt-1">
+                <a
+                  href={PHONE_HREF}
+                  className={`font-serif text-xl md:text-2xl ${textLink}`}
+                >
+                  {personalData.phone}
+                </a>
+              </dd>
+            </div>
+          </dl>
 
-          <a 
-            href={personalData.linkedin} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="w-full md:w-64 group"
-          >
-            <Card className="p-6 flex flex-col items-center w-full h-full hover:border-blue-500 transition-colors cursor-pointer group-hover:shadow-lg">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
-                <FaLinkedin size={24} />
-              </div>
-              <h3 className="font-semibold text-lg mb-2 text-slate-900 dark:text-white">LinkedIn</h3>
-              <span className="text-slate-600 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 text-sm">
-                Connect on LinkedIn
-              </span>
-            </Card>
-          </a>
-
-          <Card className="p-6 flex flex-col items-center w-full md:w-64 hover:border-blue-500 transition-colors">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
-              <FaGithub size={24} />
+          <dl className="space-y-8">
+            <div>
+              <dt className="text-sm text-muted">Location</dt>
+              <dd className="mt-1">
+                <address className="not-italic text-ink">{personalData.location}</address>
+              </dd>
             </div>
-            <h3 className="font-semibold text-lg mb-2 text-slate-900 dark:text-white">GitHub</h3>
-            <a href={personalData.github} target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">
-              View Profile
-            </a>
-          </Card>
-          
-           <Card className="p-6 flex flex-col items-center w-full md:w-64 hover:border-blue-500 transition-colors">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
-              <FaMapMarkerAlt size={24} />
+            <div>
+              <dt className="text-sm text-muted">Elsewhere</dt>
+              <dd className="mt-1 flex flex-wrap gap-x-6 gap-y-2">
+                <a
+                  href={personalData.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn profile (opens in a new tab)"
+                  className={textLink}
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href={personalData.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub profile (opens in a new tab)"
+                  className={textLink}
+                >
+                  GitHub
+                </a>
+              </dd>
             </div>
-            <h3 className="font-semibold text-lg mb-2 text-slate-900 dark:text-white">Location</h3>
-            <span className="text-slate-600 dark:text-slate-400 text-sm">
-              {personalData.location}
-            </span>
-          </Card>
+          </dl>
         </div>
 
-        <footer className="border-t border-slate-200 dark:border-slate-800 pt-8">
-          <p className="text-slate-500 dark:text-slate-500 text-sm">
-            Built with React 18, TypeScript, Vite & Tailwind by {personalData.name}
+        <footer className="mt-16 border-t border-line pt-6 md:mt-20">
+          <p className="text-xs text-muted">
+            Built with React 18, TypeScript, Vite &amp; Tailwind by {personalData.name}
           </p>
         </footer>
       </div>

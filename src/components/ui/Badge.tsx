@@ -1,8 +1,10 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
+export type BadgeVariant = 'default' | 'secondary' | 'outline' | 'accent';
+
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: 'default' | 'secondary' | 'outline' | 'accent';
+  variant?: BadgeVariant;
 }
 
 export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
@@ -11,18 +13,19 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       <span
         ref={ref}
         className={cn(
-          'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+          'inline-flex items-center rounded-sm border px-2.5 py-0.5 text-xs font-medium tracking-tight',
           {
-            'border-transparent bg-primary text-primary-foreground hover:bg-primary/80': variant === 'default',
-            'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80': variant === 'secondary',
-            'text-foreground border border-slate-200 dark:border-slate-800': variant === 'outline',
-            'border-transparent bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300': variant === 'accent',
+            'border-line bg-surface text-ink': variant === 'default',
+            'border-line bg-ink/5 text-ink': variant === 'secondary',
+            'border-line bg-transparent text-muted': variant === 'outline',
+            'border-accent bg-accent/10 text-accent': variant === 'accent',
           },
-          className
+          className,
         )}
         {...props}
       />
     );
-  }
+  },
 );
+
 Badge.displayName = 'Badge';

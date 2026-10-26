@@ -3,26 +3,26 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "check": "tsc -b --noEmit",
+    "check:ui": "node scripts/ui-check.mjs",
+    "verify": "npm run build && npm run lint && npm run check:ui",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "framer-motion": "^12.34.0",
-    "lucide-react": "^0.511.0",
     "react": "^18.3.1",
-    "react-countup": "^6.5.3",
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
-    "react-router-dom": "^7.3.0",
-    "tailwind-merge": "^3.4.0",
-    "zustand": "^5.0.3"
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

@@ -6,6 +6,13 @@
   "linkedin": "https://www.linkedin.com/in/saikrishna-garikipati-b8655016b/",
   "github": "https://github.com/saikrishnajava",
   "role": "Systems Engineer Expert",
+  "company": "Charles Schwab",
   "bio": "Systems engineer and technology architect with 10+ years designing distributed, event-driven platforms across financial services, technology, and healthcare. Expert in Java, Spring Boot, Kafka, Kubernetes, and AWS, combining architecture leadership with AI-augmented engineering using Claude, RooCode, MCP, semantic retrieval, and agent orchestration.",
-  "titles": ["Systems Engineer Expert", "Distributed Systems Architect", "AI-Augmented Engineer"]
+  "focus": [
+    "Distributed Systems",
+    "Event-Driven Architecture",
+    "AI-Augmented Engineering",
+    "Cloud-Native Platforms",
+    "Technical Leadership"
+  ]
 }

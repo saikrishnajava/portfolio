@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Badge } from './ui/Badge';
+import { cn } from '@/lib/utils';
 
 interface SkillsGridProps {
   skills: Record<string, string[]>;
 }
+
+const filterButton =
+  'inline-flex min-h-[44px] items-center rounded-sm border px-4 text-sm tracking-tight transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper';
 
 export const SkillsGrid: React.FC<SkillsGridProps> = ({ skills }) => {
   const categories = Object.keys(skills);
@@ -15,59 +17,64 @@ export const SkillsGrid: React.FC<SkillsGridProps> = ({ skills }) => {
     : skills;
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-wrap justify-center gap-4">
+    <div>
+      <div role="group" aria-label="Filter skills by category" className="flex flex-wrap gap-2">
         <button
+          type="button"
+          aria-pressed={activeCategory === null}
           onClick={() => setActiveCategory(null)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+          className={cn(
+            filterButton,
             activeCategory === null
-              ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
-              : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'
-          }`}
+              ? 'border-accent bg-accent text-paper'
+              : 'border-line bg-transparent text-muted hover:border-ink/40 hover:text-ink',
+          )}
         >
           All
         </button>
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat === activeCategory ? null : cat)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-              activeCategory === cat
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+        {categories.map((category) => {
+          const active = activeCategory === category;
+          return (
+            <button
+              key={category}
+              type="button"
+              aria-pressed={active}
+              onClick={() => setActiveCategory(active ? null : category)}
+              className={cn(
+                filterButton,
+                active
+                  ? 'border-accent bg-accent text-paper'
+                  : 'border-line bg-transparent text-muted hover:border-ink/40 hover:text-ink',
+              )}
+            >
+              {category}
+            </button>
+          );
+        })}
       </div>
 
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <AnimatePresence>
-          {Object.entries(filteredSkills).map(([category, items]) => (
-            <motion.div
-              key={category}
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <h3 className="text-lg font-semibold mb-4 text-blue-600 dark:text-blue-400">{category}</h3>
-              <div className="flex flex-wrap gap-2">
-                {items.map((skill) => (
-                  <motion.div key={skill} whileHover={{ scale: 1.05 }}>
-                    <Badge variant="outline" className="bg-slate-50 dark:bg-slate-800/50">
-                      {skill}
-                    </Badge>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+      <div className="mt-10 border-b border-line">
+        {Object.entries(filteredSkills).map(([category, items]) => (
+          <div
+            key={category}
+            className="grid gap-4 border-t border-line py-6 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] md:gap-10 md:py-8"
+          >
+            <h3 className="font-serif text-lg font-normal tracking-tight text-ink">
+              {category}
+            </h3>
+            <ul className="flex flex-wrap items-start gap-2">
+              {items.map((skill) => (
+                <li
+                  key={skill}
+                  className="border border-line px-2.5 py-1 text-sm leading-relaxed text-muted"
+                >
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
