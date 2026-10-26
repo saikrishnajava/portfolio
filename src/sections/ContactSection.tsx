@@ -80,7 +80,7 @@ export const ContactSection = () => {
 
         <footer className="mt-16 border-t border-line pt-6 md:mt-20">
           <p className="text-xs text-muted">
-            Built with React 18, TypeScript, Vite &amp; Tailwind by {personalData.name}
+            {`Built with React 18, TypeScript, Vite & Tailwind by ${personalData.name}`}
           </p>
         </footer>
       </div>

@@ -1206,7 +1206,7 @@ async function readThemeState() {
       }
     })(),
     systemDark: matchMedia('(prefers-color-scheme: dark)').matches,
-    toggleLabel: document.querySelector('button[aria-label^="Switch to"]')?.getAttribute('aria-label') || null,
+    toggleLabel: document.querySelector('button[aria-label="Toggle theme"]')?.getAttribute('aria-label') || null,
   }));
 }
 
@@ -1253,10 +1253,10 @@ async function checkThemeBehavior() {
   // An explicit choice must be remembered.
   const before = await readThemeState();
   const nextTheme = before?.hasDark ? 'light' : 'dark';
-  const clicked = await clickElement(`document.querySelector('button[aria-label^="Switch to"]')`);
+  const clicked = await clickElement(`document.querySelector('button[aria-label="Toggle theme"]')`);
 
   await check('theme toggle flips the theme and persists the choice', async () => {
-    assert(clicked, `no visible button[aria-label^="Switch to"] to click (found label: ${before?.toggleLabel || 'none'})`);
+    assert(clicked, `no visible button[aria-label="Toggle theme"] to click (found label: ${before?.toggleLabel || 'none'})`);
     const data = await pollValue(
       () => readThemeState(),
       (value) =>

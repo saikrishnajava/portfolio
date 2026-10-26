@@ -7,7 +7,7 @@ const ROOT_MARGIN = '-45% 0px -50% 0px';
  * IntersectionObserver only, so no layout reads happen in a scroll handler.
  */
 export function useScrollSpy(sectionIds: string[]) {
-  const [activeId, setActiveId] = useState('');
+  const [activeId, setActiveId] = useState(sectionIds[0] ?? '');
   const key = sectionIds.join(',');
 
   useEffect(() => {

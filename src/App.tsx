@@ -25,7 +25,7 @@ const scrollBehavior = (): ScrollBehavior =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
 function App() {
-  const { theme, toggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
   const activeSection = useScrollSpy(navItems.map((item) => item.id));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -129,18 +129,15 @@ function App() {
             <button
               type="button"
               onClick={toggleTheme}
-              aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+              aria-label="Toggle theme"
               className={buttonVariants({
                 variant: 'ghost',
                 size: 'sm',
                 className: 'h-11 w-11 px-0',
               })}
             >
-              {theme === 'dark' ? (
-                <FaSun aria-hidden="true" />
-              ) : (
-                <FaMoon aria-hidden="true" />
-              )}
+              <FaSun aria-hidden="true" className="hidden dark:block" />
+              <FaMoon aria-hidden="true" className="block dark:hidden" />
             </button>
 
             <button

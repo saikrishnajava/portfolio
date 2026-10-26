@@ -2,6 +2,8 @@
 
 A professional portfolio website showcasing my experience as a Systems Engineer Expert, built with modern web technologies.
 
+**Live:** https://saikrishnajava.github.io/portfolio/
+
 ## 🚀 Tech Stack
 
 - **Frontend:** React 18, TypeScript, Vite
@@ -38,10 +40,13 @@ A professional portfolio website showcasing my experience as a Systems Engineer 
 npm run verify
 ```
 
-Runs the TypeScript build, ESLint, and the zero-dependency browser contract
-check in `scripts/ui-check.mjs` (accessibility, contrast, keyboard, responsive,
-and content assertions). Requires Node 22+ and Chrome; set `CHROME_PATH` if
-Chrome is not at `/usr/bin/google-chrome`.
+Runs the TypeScript build, the static prerender, ESLint, the zero-dependency
+browser contract check in `scripts/ui-check.mjs`, and the static SEO contract
+check in `scripts/seo-check.mjs`. Requires Node 22+ and Chrome; set
+`CHROME_PATH` if Chrome is not at `/usr/bin/google-chrome`.
+
+`npm run predeploy` (used by `npm run deploy`) always rebuilds and prerenders
+before publishing.
 
 ## 📂 Structure
 

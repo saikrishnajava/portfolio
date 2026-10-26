@@ -28,8 +28,7 @@ export const ImpactSection = () => {
                 data-value={String(metric.value)}
                 className="font-serif text-5xl leading-none tracking-tight tabular-nums text-[#7AA2FF] md:text-6xl"
               >
-                {metric.value}
-                {metric.suffix}
+                {`${metric.value}${metric.suffix}`}
               </p>
               <h3 className="mt-4 text-base font-medium text-[#F7F6F2]">{metric.label}</h3>
               <p className="mt-2 text-sm leading-relaxed text-[#F7F6F2]/70">
