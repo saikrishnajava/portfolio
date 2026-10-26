@@ -4,6 +4,36 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/portfolio/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0B0F14" />
+    <script>
+      // Apply the stored/system theme before first paint to avoid a flash.
+      (function () {
+        try {
+          var stored = window.localStorage.getItem('theme');
+          var theme =
+            stored === 'light' || stored === 'dark'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          var root = document.documentElement;
+          root.classList.add(theme);
+          root.classList.remove(theme === 'dark' ? 'light' : 'dark');
+          root.style.colorScheme = theme;
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) {
+            meta.setAttribute('content', theme === 'dark' ? '#0B0F14' : '#F7F6F2');
+          }
+        } catch (error) {
+          var prefersDark =
+            window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var fallback = prefersDark ? 'dark' : 'light';
+          document.documentElement.classList.add(fallback);
+          document.documentElement.style.colorScheme = fallback;
+        }
+      })();
+    </script>
     <title>Saikrishna Garikipati | Systems Engineer Expert</title>
     <meta name="description" content="Portfolio of Saikrishna Garikipati, a Systems Engineer Expert and technology architect with 10+ years of experience in distributed systems, cloud-native platforms, and AI-augmented engineering." />
     <meta name="keywords" content="Saikrishna Garikipati, Systems Engineer, Software Engineer, Microservices, Java, Spring Boot, Kafka, Kubernetes, AWS, AI Engineering, RAG, MCP, Qdrant" />
@@ -65,8 +95,8 @@
       gtag('config', 'GA_MEASUREMENT_ID');
     </script> 
     -->
-    <script type="module" crossorigin src="/portfolio/assets/index-CNu5mDYF.js"></script>
-    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-qFBp1ZXy.css">
+    <script type="module" crossorigin src="/portfolio/assets/index-OXrI1xRU.js"></script>
+    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-sJ0tCPOS.css">
   </head>
   <body>
     <div id="root"></div>
