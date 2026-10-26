@@ -26,6 +26,7 @@ const VITE_BIN = path.join(ROOT, 'node_modules', '.bin', 'vite');
 
 const DESKTOP = { width: 1440, height: 1100, mobile: false };
 const DESKTOP_NARROW = { width: 1024, height: 900, mobile: false };
+const TABLET = { width: 768, height: 900, mobile: false };
 const MOBILE = { width: 390, height: 844, mobile: true };
 const MIN_CONTRAST = 4.5;
 const MIN_TARGET = 44;
@@ -531,27 +532,7 @@ const PAGE_HELPERS = String.raw`
     );
   };
 
-  const backToTop = () => {
-    const candidates = [...document.querySelectorAll('button, a, [data-back-to-top]')];
-    return (
-      candidates.find((element) => {
-        const label = [
-          element.getAttribute('aria-label') || '',
-          element.getAttribute('title') || '',
-          element.textContent || '',
-        ]
-          .join(' ')
-          .replace(/\s+/g, ' ')
-          .trim();
-        const flagged =
-          element.hasAttribute('data-back-to-top') ||
-          /back\s*to\s*top|scroll\s*to\s*top|^top$/i.test(label);
-        return flagged && isVisible(element);
-      }) || null
-    );
-  };
-
-  window.__ui = { parseColor, composite, contrastFor, accessibleName, isVisible, describe, menuToggle, backToTop };
+  window.__ui = { parseColor, composite, contrastFor, accessibleName, isVisible, describe, menuToggle };
 })();
 `;
 
@@ -631,6 +612,17 @@ async function setViewport(viewport) {
     mobile: viewport.mobile,
     screenWidth: viewport.width,
     screenHeight: viewport.height,
+  });
+}
+
+async function emulateMedia(colorScheme) {
+  // Reduced motion must stay active for the metric checks, so every media
+  // override declares both features instead of replacing the whole set.
+  await cdp.send('Emulation.setEmulatedMedia', {
+    features: [
+      { name: 'prefers-reduced-motion', value: 'reduce' },
+      { name: 'prefers-color-scheme', value: colorScheme },
+    ],
   });
 }
 
@@ -1201,6 +1193,121 @@ async function checkTheme(theme) {
   }
 }
 
+async function readThemeState() {
+  return page(() => ({
+    className: document.documentElement.className,
+    hasLight: document.documentElement.classList.contains('light'),
+    hasDark: document.documentElement.classList.contains('dark'),
+    stored: (() => {
+      try {
+        return localStorage.getItem('theme');
+      } catch {
+        return null;
+      }
+    })(),
+    systemDark: matchMedia('(prefers-color-scheme: dark)').matches,
+    toggleLabel: document.querySelector('button[aria-label^="Switch to"]')?.getAttribute('aria-label') || null,
+  }));
+}
+
+async function clearStoredTheme() {
+  return page(() => {
+    try {
+      localStorage.removeItem('theme');
+    } catch {
+      /* storage can be blocked */
+    }
+    try {
+      return localStorage.getItem('theme');
+    } catch {
+      return null;
+    }
+  });
+}
+
+async function checkThemeBehavior() {
+  // System preference wins only while the visitor has made no explicit choice.
+  await emulateMedia('light');
+  await clearStoredTheme();
+  await reload();
+
+  await check('unset theme follows the light system preference and is not written to localStorage', async () => {
+    const data = await pollValue(() => readThemeState(), (value) => value?.hasLight === true, 4000);
+    assert(data?.hasLight, `<html> does not have the "light" class with prefers-color-scheme: light (class="${data?.className}")`);
+    assert(!data?.hasDark, `<html> still has the "dark" class under a light system preference (class="${data?.className}")`);
+    assert(data?.stored === null, `localStorage.theme was written on first mount: "${data?.stored}" (expected null)`);
+    return 'light, storage null';
+  });
+
+  await emulateMedia('dark');
+  await reload();
+
+  await check('unset theme follows the dark system preference and is not written to localStorage', async () => {
+    const data = await pollValue(() => readThemeState(), (value) => value?.hasDark === true, 4000);
+    assert(data?.hasDark, `<html> does not have the "dark" class with prefers-color-scheme: dark (class="${data?.className}")`);
+    assert(!data?.hasLight, `<html> still has the "light" class under a dark system preference (class="${data?.className}")`);
+    assert(data?.stored === null, `localStorage.theme was written on first mount: "${data?.stored}" (expected null)`);
+    return 'dark, storage null';
+  });
+
+  // An explicit choice must be remembered.
+  const before = await readThemeState();
+  const nextTheme = before?.hasDark ? 'light' : 'dark';
+  const clicked = await clickElement(`document.querySelector('button[aria-label^="Switch to"]')`);
+
+  await check('theme toggle flips the theme and persists the choice', async () => {
+    assert(clicked, `no visible button[aria-label^="Switch to"] to click (found label: ${before?.toggleLabel || 'none'})`);
+    const data = await pollValue(
+      () => readThemeState(),
+      (value) =>
+        (nextTheme === 'dark' ? value?.hasDark : value?.hasLight) === true && value?.stored === nextTheme,
+      3000,
+    );
+    assert(
+      nextTheme === 'dark' ? data?.hasDark : data?.hasLight,
+      `theme did not flip to "${nextTheme}" after clicking the toggle (class="${data?.className}", label="${data?.toggleLabel}")`,
+    );
+    assert(
+      nextTheme === 'dark' ? !data?.hasLight : !data?.hasDark,
+      `<html> kept both theme classes after the toggle (class="${data?.className}")`,
+    );
+    assert(
+      data?.stored === nextTheme,
+      `localStorage.theme is ${data?.stored === null ? 'null' : `"${data?.stored}"`} after the toggle (expected "${nextTheme}")`,
+    );
+    return `${nextTheme}, stored`;
+  });
+
+  // Reload while the system prefers the opposite theme: the stored theme wins.
+  await reload();
+  await check('stored theme wins over the opposite system preference on reload', async () => {
+    const data = await pollValue(
+      () => readThemeState(),
+      (value) => (nextTheme === 'dark' ? value?.hasDark : value?.hasLight) === true,
+      4000,
+    );
+    assert(
+      data?.systemDark === (nextTheme === 'light'),
+      `emulated system preference was not the opposite of the stored "${nextTheme}" theme (systemDark=${data?.systemDark})`,
+    );
+    assert(
+      nextTheme === 'dark' ? data?.hasDark : data?.hasLight,
+      `<html> ignored the stored "${nextTheme}" theme after reload (class="${data?.className}")`,
+    );
+    assert(
+      nextTheme === 'dark' ? !data?.hasLight : !data?.hasDark,
+      `<html> kept both theme classes after reload (class="${data?.className}")`,
+    );
+    assert(data?.stored === nextTheme, `localStorage.theme is "${data?.stored}" after reload (expected "${nextTheme}")`);
+    return `${nextTheme} despite ${data.systemDark ? 'dark' : 'light'} system preference`;
+  });
+
+  // Leave the browser in the same state the rest of the suite expects.
+  await clearStoredTheme();
+  await emulateMedia('light');
+  await reload();
+}
+
 async function checkThemeBootstrapScript() {
   await check('index.html contains an inline theme bootstrap script', async () => {
     const htmlPath = path.join(ROOT, 'index.html');
@@ -1384,91 +1491,101 @@ async function checkMobileMenu() {
   });
 }
 
-async function checkBackToTopOverlap() {
+async function scrollToPageBottom() {
   await page(() => {
+    const contact = document.querySelector('#contact');
+    if (contact) contact.scrollIntoView({ block: 'end', behavior: 'instant' });
     window.scrollTo({ top: document.documentElement.scrollHeight, left: 0, behavior: 'instant' });
     return true;
   });
   await sleep(700);
+}
+
+async function readBackToTopState() {
+  return page(() => {
+    const button = document.querySelector('[aria-label="Back to top"]');
+    const contact = document.querySelector('#contact');
+    const target = contact ? contact.querySelector('[data-contact-content]') : null;
+    const box = (element) => {
+      if (!element) return null;
+      const rect = element.getBoundingClientRect();
+      return {
+        left: rect.left,
+        top: rect.top,
+        right: rect.right,
+        bottom: rect.bottom,
+        text: (element.innerText || element.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80),
+        html: window.__ui.describe(element),
+      };
+    };
+    return {
+      found: Boolean(button),
+      visible: Boolean(button && window.__ui.isVisible(button)),
+      display: button ? getComputedStyle(button).display : null,
+      targetFound: Boolean(target),
+      scrollY: Math.round(window.scrollY),
+      maxScroll: Math.round(document.documentElement.scrollHeight - innerHeight),
+      button: box(button),
+      target: box(target),
+      viewport: { width: innerWidth, height: innerHeight },
+    };
+  });
+}
+
+function overlapArea(a, b) {
+  if (!a || !b) return { x: 0, y: 0 };
+  return {
+    x: Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)),
+    y: Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top)),
+  };
+}
+
+function overlapMessage(data) {
+  const { x, y } = overlapArea(data.button, data.target);
+  return (
+    `back-to-top overlaps [data-contact-content] by ${round(x)}x${round(y)}px\n` +
+    `- button: ${round(data.button.left)},${round(data.button.top)} .. ${round(data.button.right)},${round(data.button.bottom)} (${data.button.html})\n` +
+    `- contact: ${round(data.target.left)},${round(data.target.top)} .. ${round(data.target.right)},${round(data.target.bottom)} "${data.target.text}"`
+  );
+}
+
+async function checkBackToTopMobile() {
+  await scrollToPageBottom();
+
+  const data = await pollValue(() => readBackToTopState(), (value) => value?.found === true, 2500);
+
+  await check('back-to-top is hidden at 390px', async () => {
+    assert(
+      data?.found,
+      `no [aria-label="Back to top"] rendered after scrolling to the bottom (scrollY=${data?.scrollY}, max=${data?.maxScroll}, viewport=${data?.viewport?.width}x${data?.viewport?.height})`,
+    );
+    assert(
+      !data.visible,
+      `[aria-label="Back to top"] is visible at ${data.viewport.width}px; it must stay hidden below the md breakpoint (display=${data.display}, ${data.button?.html})`,
+    );
+    return `hidden (display: ${data.display})`;
+  });
+}
+
+async function checkBackToTopTablet() {
+  await scrollToPageBottom();
 
   const data = await pollValue(
-    () =>
-      page(() => {
-        const button = window.__ui.backToTop();
-        if (!button) return { found: false };
-
-        const contact = document.querySelector('#contact');
-        let target = null;
-        if (contact) {
-          target =
-            contact.querySelector('[data-contact-content]') ||
-            contact.querySelector('footer p') ||
-            [...contact.querySelectorAll('p, h2, h3, address, li')]
-              .filter((element) => {
-                const rect = element.getBoundingClientRect();
-                return rect.width > 0 && rect.height > 0 && (element.textContent || '').trim();
-              })
-              .pop() ||
-            contact.querySelector('footer') ||
-            contact;
-        }
-        if (!target) return { found: false, reason: 'no contact content found' };
-
-        const buttonRect = button.getBoundingClientRect();
-        const targetRect = target.getBoundingClientRect();
-        const overlapX = Math.max(
-          0,
-          Math.min(buttonRect.right, targetRect.right) - Math.max(buttonRect.left, targetRect.left),
-        );
-        const overlapY = Math.max(
-          0,
-          Math.min(buttonRect.bottom, targetRect.bottom) - Math.max(buttonRect.top, targetRect.top),
-        );
-
-        return {
-          found: true,
-          overlapping: overlapX > 0 && overlapY > 0,
-          overlapX,
-          overlapY,
-          button: {
-            left: buttonRect.left,
-            top: buttonRect.top,
-            right: buttonRect.right,
-            bottom: buttonRect.bottom,
-            html: window.__ui.describe(button),
-          },
-          target: {
-            left: targetRect.left,
-            top: targetRect.top,
-            right: targetRect.right,
-            bottom: targetRect.bottom,
-            text: (target.innerText || target.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80),
-            html: window.__ui.describe(target),
-          },
-          viewport: { width: innerWidth, height: innerHeight },
-        };
-      }),
-    (value) => value?.found === true,
+    () => readBackToTopState(),
+    (value) => value?.found === true && value?.visible === true,
     2500,
   );
 
-  await check('no floating back-to-top overlap at 390px', async () => {
-    if (!data?.found) {
-      assert(
-        data?.reason !== 'no contact content found',
-        'back-to-top button is visible but no contact content was found to compare against',
-      );
-      return 'not shown on mobile';
-    }
-    const buttonRect = data.button;
-    const targetRect = data.target;
+  await check('back-to-top is visible with 0px contact overlap at 768px', async () => {
     assert(
-      !data.overlapping,
-      `back-to-top overlaps contact text by ${round(data.overlapX)}x${round(data.overlapY)}px\n` +
-        `- button: ${round(buttonRect.left)},${round(buttonRect.top)} .. ${round(buttonRect.right)},${round(buttonRect.bottom)} (${buttonRect.html})\n` +
-        `- contact: ${round(targetRect.left)},${round(targetRect.top)} .. ${round(targetRect.right)},${round(targetRect.bottom)} "${targetRect.text}"`,
+      data?.found,
+      `no [aria-label="Back to top"] button rendered after scrolling to the bottom (scrollY=${data?.scrollY}, max=${data?.maxScroll}, viewport=${data?.viewport?.width}x${data?.viewport?.height})`,
     );
-    return `0px overlap (button ${round(buttonRect.left)},${round(buttonRect.top)}; contact bottom ${round(targetRect.bottom)})`;
+    assert(data.visible, `[aria-label="Back to top"] is not visible at 768px (display=${data.display}, ${data.button?.html})`);
+    assert(data.targetFound, 'no [data-contact-content] found inside #contact');
+    const { x, y } = overlapArea(data.button, data.target);
+    assert(!(x > 0 && y > 0), overlapMessage(data));
+    return `visible; 0px overlap (button ${round(data.button.left)},${round(data.button.top)}; contact bottom ${round(data.target.bottom)}; scrollY ${data.scrollY}/${data.maxScroll})`;
   });
 }
 
@@ -1640,13 +1757,12 @@ async function main() {
   // assertions exercise real CSS.
   await cdp.send('Emulation.setFocusEmulationEnabled', { enabled: true }).catch(() => {});
   watchRuntime();
-  await cdp.send('Emulation.setEmulatedMedia', {
-    features: [{ name: 'prefers-reduced-motion', value: 'reduce' }],
-  });
+  await emulateMedia('light');
 
   // --- Desktop / light ------------------------------------------------
   await setViewport(DESKTOP);
   await navigate(PREVIEW_URL);
+  await checkThemeBehavior();
   await applyTheme('light');
 
   await checkSkipLink();
@@ -1674,12 +1790,17 @@ async function main() {
   await applyTheme('light');
   await checkBackToTopDesktop();
 
+  // --- Tablet / back-to-top -------------------------------------------
+  await setViewport(TABLET);
+  await applyTheme('light');
+  await checkBackToTopTablet();
+
   // --- Mobile / light -------------------------------------------------
   await setViewport(MOBILE);
   await applyTheme('light');
   await checkMobileMenu();
   await checkNoHorizontalOverflow();
-  await checkBackToTopOverlap();
+  await checkBackToTopMobile();
 
   await checkConsoleErrors();
 

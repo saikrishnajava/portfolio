@@ -26,8 +26,8 @@ We have optimized the codebase to be search-engine friendly:
 ### A. Google Search Console (GSC)
 **Goal**: Submit your site to Google for indexing.
 1.  Go to [Google Search Console](https://search.google.com/search-console).
-2.  Add Property: `https://saikrishnajava.github.io/`.
-3.  **Sitemaps**: Submit your sitemap URL: `https://saikrishnajava.github.io/sitemap.xml`.
+2.  Add Property: `https://saikrishnajava.github.io/portfolio/`.
+3.  **Sitemaps**: Submit your sitemap URL: `https://saikrishnajava.github.io/portfolio/sitemap.xml`.
 4.  **URL Inspection**: Enter your homepage URL and click "Request Indexing".
 
 ### B. Google Analytics (GA4)

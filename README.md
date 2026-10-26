@@ -5,7 +5,7 @@ A professional portfolio website showcasing my experience as a Systems Engineer 
 ## 🚀 Tech Stack
 
 - **Frontend:** React 18, TypeScript, Vite
-- **Styling:** Tailwind CSS, Framer Motion
+- **Styling:** Tailwind CSS
 - **Deployment:** GitHub Pages
 - **Icons:** React Icons
 
