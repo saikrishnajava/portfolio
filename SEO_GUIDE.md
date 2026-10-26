@@ -86,3 +86,14 @@ Diagnosis on 2026-10-25:
 
 Indexing is not instant: expect days to a few weeks after the first crawl.
 Technical fixes make the page eligible; links and time build authority.
+
+## 4. Success metrics
+
+- Page 1 for `Saikrishna Garikipati portfolio` and
+  `Saikrishna Garikipati Systems Engineer`.
+- Top 10 for the bare name. LinkedIn is likely to stay #1 for the name query;
+  aim to appear alongside it, not replace it immediately.
+- Search Console shows the page as indexed, not “Discovered – currently not
+  indexed”.
+- Rich-result eligibility from the `Person`/`ProfilePage` schema; eligibility is
+  not a guarantee of display.
